@@ -1,0 +1,123 @@
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    user-select: none;
+}
+body ::-webkit-scrollbar {
+    display: none;
+}
+// <----- icon ----->
+@mixin iconSize {
+    display: block;
+    width: 18px;
+    height: 18px;
+}
+@mixin bgImg($img) {
+    background: url($img) no-repeat center center / auto 100%;
+}
+
+.icon-arrow {
+    @include iconSize;
+    @include bgImg("../assets/icon/small/arrow.png");
+}
+.icon-back {
+    @include iconSize;
+    @include bgImg("../assets/icon/small/back.png");
+}
+.icon-bookmark1 {
+    @include iconSize;
+    @include bgImg("../assets/icon/small/bookmark1.png");
+}
+.icon-bookmark2 {
+    @include iconSize;
+    @include bgImg("../assets/icon/small/bookmark2.png");
+}
+.icon-bus {
+    @include iconSize;
+    @include bgImg("../assets/icon/small/bus.png");
+}
+.icon-bus2 {
+    @include iconSize;
+    @include bgImg("../assets/icon/medium/bus.png");
+}
+.icon-clock {
+    @include iconSize;
+    @include bgImg("../assets/icon/small/clock.png");
+}
+.icon-company {
+    @include iconSize;
+    @include bgImg("../assets/icon/small/company.png");
+}
+.icon-heart1 {
+    @include iconSize;
+    @include bgImg("../assets/icon/small/heart1.png");
+}
+.icon-heart2 {
+    @include iconSize;
+    @include bgImg("../assets/icon/small/heart2.png");
+}
+.icon-location {
+    @include iconSize;
+    @include bgImg("../assets/icon/small/location.png");
+}
+.icon-location2 {
+    @include iconSize;
+    @include bgImg("../assets/icon/medium/location.png");
+}
+.icon-menu {
+    @include iconSize;
+    @include bgImg("../assets/icon/small/menu.png");
+}
+.icon-notice {
+    @include iconSize;
+    @include bgImg("../assets/icon/small/notice.png");
+}
+.icon-route {
+    @include iconSize;
+    @include bgImg("../assets/icon/small/route.png");
+}
+.icon-route2 {
+    @include iconSize;
+    @include bgImg("../assets/icon/medium/route.png");
+}
+.icon-searhHistory {
+    @include iconSize;
+    @include bgImg("../assets/icon/small/searchHistory.png");
+}
+.icon-station {
+    @include iconSize;
+    @include bgImg("../assets/icon/small/station.png");
+}
+.icon-search {
+    @include iconSize;
+    @include bgImg("../assets/icon/small/search.png");
+}
+// <----- font ----->
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap");
+@mixin font($size, $fontWeight) {
+    font-size: $size;
+    font-weight: $fontWeight;
+    font-family: "Noto Sans TC", sans-serif;
+}
+h1 {
+    @include font(24px, 500);
+}
+h2 {
+    @include font(16px, 700);
+}
+h3 {
+    @include font(14px, 500);
+}
+h4 {
+    @include font(14px, 400);
+}
+body {
+    @include font(12px, 300);
+}
+// <----- logo ----->
+.logo {
+    width: 72px;
+    height: 21.23px;
+    background: url("../assets/logo.png") no-repeat center center / 100% 100%;
+}
