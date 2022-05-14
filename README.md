@@ -41,8 +41,3 @@
 - Wicket
 - SCSS
 
-### 心得
-趁著當兵前空隙來練習這次的專案
-本次專案主要練習手刻UI與RWD變版的設計
-串接TDX API 動態公車的資料 運用在Leaflet map套件
-以及熟悉一下vue
