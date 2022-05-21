@@ -5,7 +5,7 @@
   </div>
   <SelectLocation />
   <div class="container">
-    <h3 class="title">{{ $store.state.location }}{{ this.searchBusRoute }}</h3>
+    <h3 class="title">{{ this.searchBusRoute }}</h3>
     <div class="subTitle">{{ this.OperatorName }}/一段票</div>
     <div class="tabWrap">
       <h4
