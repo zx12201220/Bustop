@@ -126,6 +126,34 @@ export default {
     };
   },
   methods: {
+    isFirstUse() {
+      let data = localStorage.getItem("busTop_isFirst");
+      if (data === null) {
+        localStorage.setItem("busTop_isFirst", true);
+        localStorage.setItem(
+          "busTop_favorlist",
+          JSON.stringify([
+            {
+              location: "Taoyuan",
+              routeName: "151",
+              OperatorName: "桃園客運",
+              startStop: "同安街",
+              endStop: "桃園",
+            },
+            {
+              location: "Taipei",
+              routeName: "紅25",
+              OperatorName: "首都客運",
+              startStop: "捷運北門站",
+              endStop: "南港",
+            },
+          ])
+        );
+        return true;
+      } else {
+        return false;
+      }
+    },
     getFavoriteList() {
       //localStorage 取得我最愛列表
       let data = localStorage.getItem("busTop_favorlist");
@@ -190,6 +218,7 @@ export default {
   },
   mounted() {
     //獲取localStorage列表
+    this.isFirstUse();
     let localStorageData = this.getFavoriteList();
     this.favoriteList = [];
     //將localStorage資料放到data
