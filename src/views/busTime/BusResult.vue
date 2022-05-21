@@ -5,7 +5,7 @@
   </div>
   <SelectLocation />
   <div class="container">
-    <h3 class="title">{{ this.location }}{{ this.searchBusRoute }}</h3>
+    <h3 class="title">{{ $store.state.location }}{{ this.searchBusRoute }}</h3>
     <div class="subTitle">{{ this.OperatorName }}/一段票</div>
     <div class="tabWrap">
       <h4
@@ -71,7 +71,7 @@ import RouteHeader from "@/components/RouteHeader.vue";
 import SelectLocation from "@/components/SelectLocation.vue";
 import Map from "@/components/Map.vue";
 import axios from "axios";
-import getAuthorizationHeader from '@/tools/AuthorizationHeader';
+import getAuthorizationHeader from "@/tools/AuthorizationHeader";
 export default {
   name: "bus_result",
   components: {
@@ -111,31 +111,16 @@ export default {
       this.isMobileShow = false;
     },
     initData() {
-      const location = this.$store.state.searchBusRoute.location;
       this.searchBusRoute = this.$store.state.searchBusRoute.routeName;
       this.OperatorName = this.$store.state.searchBusRoute.OperatorName;
       this.startStopName = this.$store.state.searchBusRoute.startStop;
       this.endStopName = this.$store.state.searchBusRoute.endStop;
-
-      switch (location) {
-        case "Taichung":
-          this.location = "台中市";
-          break;
-        case "Taoyuan":
-          this.location = "桃園市";
-          break;
-        case "Kaohsiung":
-          this.location = "高雄市";
-          break;
-        default:
-          break;
-      }
     },
     getStopOfRouteApi() {
       return new Promise((resolve, reject) => {
         axios
           .get(
-            `https://ptx.transportdata.tw/MOTC/v2/Bus/StopOfRoute/City/${this.$store.state.searchBusRoute.location}/${this.searchBusRoute}?%24top=150&%24format=JSON`,
+            `https://ptx.transportdata.tw/MOTC/v2/Bus/StopOfRoute/City/${this.$store.state.searchBusRoute.location}/${this.searchBusRoute}?%24top=500&%24format=JSON`,
             {
               headers: getAuthorizationHeader(),
             }
@@ -162,7 +147,7 @@ export default {
       return new Promise((resolve, reject) => {
         axios
           .get(
-            `https://ptx.transportdata.tw/MOTC/v2/Bus/EstimatedTimeOfArrival/City/${this.$store.state.searchBusRoute.location}/${this.searchBusRoute}?%24top=150&%24format=JSON`,
+            `https://ptx.transportdata.tw/MOTC/v2/Bus/EstimatedTimeOfArrival/City/${this.$store.state.searchBusRoute.location}/${this.searchBusRoute}?%24top=500&%24format=JSON`,
             {
               headers: getAuthorizationHeader(),
             }
@@ -187,14 +172,14 @@ export default {
                         this.startStopOfRoute[i].nextBusTime = `進站中`;
                         this.startStopOfRoute[i].state = "pitStop";
                       } else if (element.EstimateTime / 60 <= 3) {
-                        this.startStopOfRoute[i].nextBusTime = `${
-                          Math.trunc(element.EstimateTime / 60)
-                        }分鐘`;
+                        this.startStopOfRoute[i].nextBusTime = `${Math.trunc(
+                          element.EstimateTime / 60
+                        )}分鐘`;
                         this.startStopOfRoute[i].state = "comming";
                       } else {
-                        this.startStopOfRoute[i].nextBusTime = `${
-                          Math.trunc(element.EstimateTime / 60)
-                        }分鐘`;
+                        this.startStopOfRoute[i].nextBusTime = `${Math.trunc(
+                          element.EstimateTime / 60
+                        )}分鐘`;
                         this.startStopOfRoute[i].state = "none";
                       }
                     } else {
@@ -217,14 +202,14 @@ export default {
                         this.endStopOfRoute[i].nextBusTime = `進站中`;
                         this.endStopOfRoute[i].state = "pitStop";
                       } else if (element.EstimateTime / 60 <= 3) {
-                        this.endStopOfRoute[i].nextBusTime = `${
-                          Math.trunc(element.EstimateTime / 60)
-                        }分鐘`;
+                        this.endStopOfRoute[i].nextBusTime = `${Math.trunc(
+                          element.EstimateTime / 60
+                        )}分鐘`;
                         this.endStopOfRoute[i].state = "comming";
                       } else {
-                        this.endStopOfRoute[i].nextBusTime = `${
-                          Math.trunc(element.EstimateTime / 60)
-                        }分鐘`;
+                        this.endStopOfRoute[i].nextBusTime = `${Math.trunc(
+                          element.EstimateTime / 60
+                        )}分鐘`;
                         this.endStopOfRoute[i].state = "none";
                       }
                     } else {
@@ -285,6 +270,25 @@ export default {
                 this.$store.commit("setEndLine", element.Geometry);
               }
             });
+            //如果無Direction資料
+            if (this.$store.state.startLine === null) {
+              response.data.forEach((element) => {
+                if (
+                  this.searchBusRoute === element.RouteName.Zh_tw &&
+                  this.$store.state.startLine === null
+                ) {
+                  this.$store.commit("setStartLine", element.Geometry);
+                } else if (
+                  this.searchBusRoute === element.RouteName.Zh_tw &&
+                  this.$store.state.startLine !== null
+                ) {
+                  this.$store.commit("setEndLine", element.Geometry);
+                }
+              });
+            }
+            if (this.$store.state.endLine === null) {
+              this.$store.commit("setEndLine", this.$store.state.startLine);
+            }
             resolve();
           })
           .catch((err) => {
