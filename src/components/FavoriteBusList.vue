@@ -84,7 +84,8 @@
               item.title,
               item.OperatorName,
               item.startStop,
-              item.endStop
+              item.endStop,
+              item.location
             )
           "
         >

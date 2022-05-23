@@ -77,12 +77,22 @@ export default {
       }
     },
   },
+  computed: {
+    isLoading() {
+      return this.$store.state.isLoading;
+    },
+  },
   mounted() {
     const route = this.$route.path;
     if (route === "/searchBus") {
       this.activeIndex = 0;
     } else if (route === "/searchPlan") {
       this.activeIndex = 1;
+    }
+    if (this.isLoading) {
+      setTimeout(() => {
+        this.$store.commit("setLoading", false);
+      }, 3000);
     }
   },
 };
