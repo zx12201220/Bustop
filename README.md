@@ -10,7 +10,6 @@
 - 全台公車動態時刻查詢應用服務
 - The F2E 3rd 前端修練精神時光屋
 - 使用 Vue 3 & Vite2
-- 介接 TDX 運輸資料 API
 - 使用 Leaflet Map 繪製地圖
 - 介接 TDX 運輸資料 API
 - 手刻 CSS & RWD
