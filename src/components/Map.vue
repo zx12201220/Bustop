@@ -287,13 +287,22 @@ export default {
     },
     isGpsReady: {
       handler: function (newValue, oldValue) {
-        if (newValue) {
-          setTimeout(() => {
-            this.centerUpdate(this.$store.state.gps);
-            this.centerSize = [41, 41];
-            this.zoomUpdate(16);
-          }, 1000);
-        }
+        this.$nextTick(() => {
+          if (newValue && this.$route.fullPath !== "/busResult") {
+            if (this.$route.fullPath !== "/searchBus") {
+              this.centerUpdate(this.$store.state.gps);
+            } else {
+              setTimeout(() => {
+                this.centerUpdate(this.$store.state.gps);
+                this.centerSize = [41, 41];
+
+                setTimeout(() => {
+                  this.zoomUpdate(16);
+                }, 1000);
+              }, 1000);
+            }
+          }
+        });
       },
       immediate: true,
     },
@@ -329,7 +338,7 @@ export default {
   width: 100%;
   height: 100%;
   border-radius: 8px;
-  background-color: skyblue;
+  background-color: $gray;
 }
 </style>
 <style>

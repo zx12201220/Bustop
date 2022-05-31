@@ -8,7 +8,7 @@ const store = createStore({
         mapCenter: [23.97565, 120.9738819],
         selectLocation: 'Taichung',
         location: '',
-        locationEn:'',
+        locationEn: '',
         searchBusRoute: {
             location: '',
             routeName: '',
@@ -24,6 +24,7 @@ const store = createStore({
         isMobileShow: false,
         nearBusStop: [],
         nearBusStopActiveIndex: 0,
+        gpsOnce: true,
     },
     mutations: {
         setLoading(state, data) {
@@ -73,6 +74,9 @@ const store = createStore({
         },
         setNearBusStopActiveIndex(state, data) {
             state.nearBusStopActiveIndex = data;
+        },
+        setGpsOnce(state, data) {
+            state.gpsOnce = data;
         },
     },
     getters: {
